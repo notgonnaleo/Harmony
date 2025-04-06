@@ -13,11 +13,6 @@ namespace Harmony.Api.Contexts
         {
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Server=DESKTOP-34L8VSU\\MSSQLSERVER01;Database=HarmonyDB;Trusted_Connection=True;TrustServerCertificate=True");
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
@@ -44,6 +39,5 @@ namespace Harmony.Api.Contexts
         public DbSet<User> Users { get; set; } = null!;
         public DbSet<Song> Songs { get; set; } = null!;
         public DbSet<Interaction> Interactions { get; set; } = null!;
-
     }
 }
