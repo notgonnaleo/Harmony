@@ -1,6 +1,5 @@
 ﻿using Harmony.Api.Entities;
 using Harmony.Api.Resolvers;
-using HotChocolate.Types;
 
 namespace Harmony.Api.Types
 {

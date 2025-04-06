@@ -1,5 +1,6 @@
 using Harmony.Api;
 using Harmony.Api.Contexts;
+using Harmony.Api.Mutations;
 using Harmony.Api.Resolvers;
 using Harmony.Api.Types;
 
@@ -10,6 +11,7 @@ builder.Services
     .AddScoped<UserResolver>()
     .AddGraphQLServer()
     .AddQueryType<Query>()
+    .AddMutationType<InteractionMutation>()
     .AddType<UserType>()
     .RegisterDbContextFactory<AppDbContext>()
     .AddProjections()
