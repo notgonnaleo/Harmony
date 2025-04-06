@@ -1,11 +1,16 @@
 using Harmony.Api;
 using Harmony.Api.Contexts;
+using Harmony.Api.Resolvers;
+using Harmony.Api.Types;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<AppDbContext>();
-builder.Services.AddGraphQLServer()
+builder.Services
+    .AddScoped<UserResolver>()
+    .AddGraphQLServer()
     .AddQueryType<Query>()
+    .AddType<UserType>()
     .RegisterDbContextFactory<AppDbContext>()
     .AddProjections()
     .AddFiltering()
@@ -19,6 +24,6 @@ var app = builder.Build();
 
 app.UseAuthorization();
 
-app.MapGraphQL("/nitro");
+app.MapGraphQL("/graphql");
 
 app.Run();
