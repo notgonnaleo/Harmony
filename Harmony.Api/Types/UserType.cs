@@ -14,6 +14,11 @@ namespace Harmony.Api.Types
                 .Field("totalLikesGiven")
                 .ResolveWith<UserResolver>(r => r.GetTotalLikesGivenAsync(default!))
                 .Type<IntType>();
+
+            descriptor
+                .Field("uploadedSongs")
+                .ResolveWith<UserResolver>(r => r.GetUserUploadedSongs(default!))
+                .Type<ListType<SongType>>();
         }
     }
 }

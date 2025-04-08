@@ -6,7 +6,7 @@ namespace Harmony.Api.Mutations
 {
     public class InteractionMutation
     {
-        public async Task<Interaction> LikeSong(int userId, int songId, [Service] AppDbContext context)
+        public async Task<Interaction> LikeSong([Service] AppDbContext context, int userId, int songId)
         {
             var exists = await context.Interactions.AnyAsync(i =>
                 i.UserId == userId &&

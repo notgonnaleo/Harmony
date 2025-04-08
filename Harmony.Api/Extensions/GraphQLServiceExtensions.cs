@@ -11,8 +11,9 @@ namespace Harmony.Api.Extensions
             services
                 .AddGraphQLServer()
                 .AddQueryType<Query>()
-                .AddMutationType<InteractionMutation>()
+                .AddMutationType<Mutation>()
                 .AddType<UserType>()
+                .AddType<SongType>()
                 .RegisterDbContextFactory<AppDbContext>()
                 .AddProjections()
                 .AddFiltering()
