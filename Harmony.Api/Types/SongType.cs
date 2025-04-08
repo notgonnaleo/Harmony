@@ -1,5 +1,4 @@
 ﻿using Harmony.Api.Entities;
-using Harmony.Api.Resolvers;
 
 namespace Harmony.Api.Types
 {
@@ -7,8 +6,10 @@ namespace Harmony.Api.Types
     {
         protected override void Configure(IObjectTypeDescriptor<Song> descriptor)
         {
-            descriptor.Field(u => u.Id);
-            descriptor.Field(u => u.Title);
+            descriptor.Field(u => u.Id)
+                .Description("Song Unique Id");
+            descriptor.Field(u => u.Title)
+                .Description("Song Title Name");
         }
     }
 }
