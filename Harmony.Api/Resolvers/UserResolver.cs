@@ -13,12 +13,12 @@ namespace Harmony.Api.Resolvers
             _contextFactory = contextFactory;
         }
 
-        public async Task<int> GetTotalLikesGivenAsync([Parent] User user)
+        public async Task<IEnumerable<Song>> GetUserLikedSongs([Parent] User user)
         {
             var context = _contextFactory.CreateDbContext();
-            return await context.Interactions
-                .Where(i => i.UserId == user.Id && i.InteractionType == InteractionType.Like)
-                .CountAsync();
+            var likedSongs = await context.Interactions.Where(x => x.UserId == user.Id && x.InteractionType == InteractionType.Like).ToListAsync();
+            var songsInfo = await context.Songs.Where(x => likedSongs.Select(l => l.SongId).Contains(x.Id)).ToListAsync();
+            return songsInfo ?? new List<Song>();
         }
 
         public async Task<IEnumerable<Song>> GetUserUploadedSongs([Parent] User user)

@@ -29,5 +29,29 @@ namespace Harmony.Api.Mutations
 
             return interaction;
         }
+
+        public async Task<Interaction> RepostSong([Service] AppDbContext context, int userId, int songId)
+        {
+            var exists = await context.Interactions.AnyAsync(i =>
+                i.UserId == userId &&
+                i.SongId == songId &&
+                i.InteractionType == InteractionType.Repost);
+
+            if (exists)
+                throw new Exception("User already reposted this song.");
+
+            var interaction = new Interaction
+            {
+                UserId = userId,
+                SongId = songId,
+                InteractionType = InteractionType.Repost,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            context.Interactions.Add(interaction);
+            await context.SaveChangesAsync();
+
+            return interaction;
+        }
     }
 }

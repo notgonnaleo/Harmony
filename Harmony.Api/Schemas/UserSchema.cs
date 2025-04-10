@@ -1,9 +1,9 @@
 ﻿using Harmony.Api.Entities;
 using Harmony.Api.Resolvers;
 
-namespace Harmony.Api.Types
+namespace Harmony.Api.Schemas
 {
-    public class UserType : ObjectType<User>
+    public class UserSchema : ObjectType<User>
     {
         protected override void Configure(IObjectTypeDescriptor<User> descriptor)
         {
@@ -11,14 +11,14 @@ namespace Harmony.Api.Types
             descriptor.Field(u => u.Username);
 
             descriptor
-                .Field("totalLikesGiven")
-                .ResolveWith<UserResolver>(r => r.GetTotalLikesGivenAsync(default!))
-                .Type<IntType>();
+                .Field("getUserLikedSongs")
+                .ResolveWith<UserResolver>(r => r.GetUserLikedSongs(default!))
+                .Type<ListType<SongSchema>>();
 
             descriptor
                 .Field("uploadedSongs")
                 .ResolveWith<UserResolver>(r => r.GetUserUploadedSongs(default!))
-                .Type<ListType<SongType>>();
+                .Type<ListType<SongSchema>>();
         }
     }
 }

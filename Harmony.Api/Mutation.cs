@@ -17,5 +17,11 @@ namespace Harmony.Api
             var interactionMutation = new InteractionMutation();
             return await interactionMutation.LikeSong(context, userId, songId);
         }
+
+        public async Task<Interaction> RepostSong([Service] AppDbContext context, int userId, int songId)
+        {
+            var interactionMutation = new InteractionMutation();
+            return await interactionMutation.RepostSong(context, userId, songId);
+        }
     }
 }
