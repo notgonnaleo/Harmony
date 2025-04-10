@@ -1,8 +1,8 @@
 ﻿using Harmony.Api.Entities;
 
-namespace Harmony.Api.Schemas
+namespace Harmony.Api.Types
 {
-    public class SongSchema : ObjectType<Song>
+    public class SongType : ObjectType<Song>
     {
         protected override void Configure(IObjectTypeDescriptor<Song> descriptor)
         {

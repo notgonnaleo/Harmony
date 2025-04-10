@@ -1,5 +1,5 @@
 ﻿using Harmony.Api.Contexts;
-using Harmony.Api.Schemas;
+using Harmony.Api.Types;
 
 namespace Harmony.Api.Extensions
 {
@@ -11,8 +11,8 @@ namespace Harmony.Api.Extensions
                 .AddGraphQLServer()
                 .AddQueryType<Query>()
                 .AddMutationType<Mutation>()
-                .AddType<UserSchema>()
-                .AddType<SongSchema>()
+                .AddType<UserType>()
+                .AddType<SongType>()
                 .RegisterDbContextFactory<AppDbContext>()
                 .AddProjections()
                 .AddFiltering()
