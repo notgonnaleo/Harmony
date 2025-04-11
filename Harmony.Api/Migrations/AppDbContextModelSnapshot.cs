@@ -30,25 +30,21 @@ namespace Harmony.Api.Migrations
                     b.Property<int>("SongId")
                         .HasColumnType("int");
 
+                    b.Property<int>("InteractionTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("InteractionType")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("ModifiedAt")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int?>("SongId1")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SongId2")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "SongId");
+                    b.HasKey("UserId", "SongId", "InteractionTypeId");
 
                     b.HasIndex("SongId");
-
-                    b.HasIndex("SongId1");
-
-                    b.HasIndex("SongId2");
 
                     b.ToTable("Interactions");
                 });
@@ -61,7 +57,10 @@ namespace Harmony.Api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("ArtistId")
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ArtistId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
@@ -70,15 +69,19 @@ namespace Harmony.Api.Migrations
                     b.Property<int>("Duration")
                         .HasColumnType("int");
 
-                    b.PrimitiveCollection<string>("Tags")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Likes")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Reposts")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ArtistId");
 
                     b.ToTable("Songs");
                 });
@@ -103,6 +106,9 @@ namespace Harmony.Api.Migrations
                     b.Property<int>("Followers")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
 
@@ -122,35 +128,11 @@ namespace Harmony.Api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Harmony.Api.Entities.Song", null)
-                        .WithMany("Reposts")
-                        .HasForeignKey("SongId1");
-
-                    b.HasOne("Harmony.Api.Entities.Song", null)
-                        .WithMany("Likes")
-                        .HasForeignKey("SongId2");
-
                     b.HasOne("Harmony.Api.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Harmony.Api.Entities.Song", b =>
-                {
-                    b.HasOne("Harmony.Api.Entities.User", "Artist")
-                        .WithMany()
-                        .HasForeignKey("ArtistId");
-
-                    b.Navigation("Artist");
-                });
-
-            modelBuilder.Entity("Harmony.Api.Entities.Song", b =>
-                {
-                    b.Navigation("Likes");
-
-                    b.Navigation("Reposts");
                 });
 #pragma warning restore 612, 618
         }

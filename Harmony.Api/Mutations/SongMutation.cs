@@ -12,7 +12,7 @@ namespace Harmony.Api.Mutations
             {
                 Title = title,
                 Duration = duration,
-                Artist = artist,
+                ArtistId = artist.Id,
                 CreatedAt = DateTime.UtcNow,
             };
             context.Songs.Add(song);

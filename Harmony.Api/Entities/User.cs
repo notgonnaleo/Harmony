@@ -9,5 +9,6 @@
         public bool Verified { get; set; }
         public int Followers { get; set; }
         public DateTime CreatedAt { get; set; }
+        public DateTime ModifiedAt { get; set; }
     }
 }

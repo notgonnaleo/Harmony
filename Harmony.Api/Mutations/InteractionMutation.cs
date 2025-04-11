@@ -8,10 +8,14 @@ namespace Harmony.Api.Mutations
     {
         public async Task<Interaction> LikeSong([Service] AppDbContext context, int userId, int songId)
         {
+            var songExist = await context.Songs.Where(x => x.Id == songId).FirstOrDefaultAsync();
+            if (songExist == null)
+                throw new Exception("Song not found.");
+
             var exists = await context.Interactions.AnyAsync(i =>
                 i.UserId == userId &&
                 i.SongId == songId &&
-                i.InteractionType == InteractionType.Like);
+                i.InteractionTypeId == (int)InteractionType.Like);
 
             if (exists)
                 throw new Exception("User already liked this song.");
@@ -20,7 +24,7 @@ namespace Harmony.Api.Mutations
             {
                 UserId = userId,
                 SongId = songId,
-                InteractionType = InteractionType.Like,
+                InteractionTypeId = (int)InteractionType.Like,
                 CreatedAt = DateTime.UtcNow
             };
 
@@ -35,7 +39,7 @@ namespace Harmony.Api.Mutations
             var exists = await context.Interactions.AnyAsync(i =>
                 i.UserId == userId &&
                 i.SongId == songId &&
-                i.InteractionType == InteractionType.Repost);
+                i.InteractionTypeId == (int)InteractionType.Repost);
 
             if (exists)
                 throw new Exception("User already reposted this song.");
@@ -44,7 +48,7 @@ namespace Harmony.Api.Mutations
             {
                 UserId = userId,
                 SongId = songId,
-                InteractionType = InteractionType.Repost,
+                InteractionTypeId = (int)InteractionType.Repost,
                 CreatedAt = DateTime.UtcNow
             };
 
