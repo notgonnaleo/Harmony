@@ -7,6 +7,8 @@ namespace Harmony.Api.Types
     {
         protected override void Configure(IObjectTypeDescriptor<User> descriptor)
         {
+            descriptor.Name("UserType");
+
             descriptor.Field(u => u.Id);
             descriptor.Field(u => u.Username);
 

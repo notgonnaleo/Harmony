@@ -13,6 +13,7 @@ namespace Harmony.Api.Extensions
                 .AddMutationType<Mutation>()
                 .AddType<UserType>()
                 .AddType<SongType>()
+                .AddType<InteractionType>()
                 .RegisterDbContextFactory<AppDbContext>()
                 .AddProjections()
                 .AddFiltering()
